@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2020 at 04:32 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Sep 22, 2021 at 12:36 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -21,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `online_rest`
 --
+CREATE DATABASE IF NOT EXISTS `online_rest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `online_rest`;
 
 -- --------------------------------------------------------
 
@@ -28,14 +28,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `adm_id` int(222) NOT NULL,
+CREATE TABLE IF NOT EXISTS `admin` (
+  `adm_id` int(222) NOT NULL AUTO_INCREMENT,
   `username` varchar(222) NOT NULL,
   `password` varchar(222) NOT NULL,
   `email` varchar(222) NOT NULL,
   `code` varchar(222) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`adm_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -43,8 +44,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`adm_id`, `username`, `password`, `email`, `code`, `date`) VALUES
 (6, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'admin@gmail.com', '', '2018-04-09 07:36:18'),
-(8, 'abc88', '456', 'abc@mail.com', 'QX5ZMN', '2020-06-27 19:01:00'),
-(9, 'tanvir', 'e10adc3949ba59abbe56e057f20f883e', 'tanvir@mail.com', 'QFE6ZM', '2020-06-27 19:17:09');
+(9, 'biplob', 'e10adc3949ba59abbe56e057f20f883e', 'tanvir@mail.com', 'QFE6ZM', '2021-09-22 10:27:41');
 
 -- --------------------------------------------------------
 
@@ -52,22 +52,47 @@ INSERT INTO `admin` (`adm_id`, `username`, `password`, `email`, `code`, `date`) 
 -- Table structure for table `admin_codes`
 --
 
-CREATE TABLE `admin_codes` (
-  `id` int(222) NOT NULL,
-  `codes` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `admin_codes` (
+  `id` int(222) NOT NULL AUTO_INCREMENT,
+  `codes` varchar(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codes` (`codes`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin_codes`
 --
 
 INSERT INTO `admin_codes` (`id`, `codes`) VALUES
-(1, 'QX5ZMN'),
 (2, 'QFE6ZM'),
+(6, 'QMTZ2J'),
 (3, 'QMZR92'),
 (4, 'QPGIOV'),
 (5, 'QSTE52'),
-(6, 'QMTZ2J');
+(1, 'QX5ZMN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chef`
+--
+
+CREATE TABLE IF NOT EXISTS `chef` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `phone` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chef`
+--
+
+INSERT INTO `chef` (`id`, `name`, `address`, `phone`) VALUES
+(4, 'habib9', 'dhaka', 2147483647),
+(9, 'habib', 'poi', 456987123);
 
 -- --------------------------------------------------------
 
@@ -75,15 +100,16 @@ INSERT INTO `admin_codes` (`id`, `codes`) VALUES
 -- Table structure for table `del-boy`
 --
 
-CREATE TABLE `del-boy` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `del-boy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `phone` int(11) NOT NULL,
   `pass` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `email` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `email` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `del-boy`
@@ -99,14 +125,15 @@ INSERT INTO `del-boy` (`id`, `username`, `name`, `phone`, `pass`, `address`, `em
 -- Table structure for table `dishes`
 --
 
-CREATE TABLE `dishes` (
-  `d_id` int(222) NOT NULL,
+CREATE TABLE IF NOT EXISTS `dishes` (
+  `d_id` int(222) NOT NULL AUTO_INCREMENT,
   `rs_id` int(222) NOT NULL,
   `title` varchar(222) NOT NULL,
   `slogan` varchar(222) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `img` varchar(222) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `img` varchar(222) NOT NULL,
+  PRIMARY KEY (`d_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dishes`
@@ -138,13 +165,14 @@ INSERT INTO `dishes` (`d_id`, `rs_id`, `title`, `slogan`, `price`, `img`) VALUES
 -- Table structure for table `remark`
 --
 
-CREATE TABLE `remark` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `remark` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `frm_id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `remark` mediumtext NOT NULL,
-  `remarkDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `remarkDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `remark`
@@ -179,8 +207,8 @@ INSERT INTO `remark` (`id`, `frm_id`, `status`, `remark`, `remarkDate`) VALUES
 -- Table structure for table `restaurant`
 --
 
-CREATE TABLE `restaurant` (
-  `rs_id` int(222) NOT NULL,
+CREATE TABLE IF NOT EXISTS `restaurant` (
+  `rs_id` int(222) NOT NULL AUTO_INCREMENT,
   `c_id` int(222) NOT NULL,
   `title` varchar(222) NOT NULL,
   `email` varchar(222) NOT NULL,
@@ -191,8 +219,9 @@ CREATE TABLE `restaurant` (
   `o_days` varchar(222) NOT NULL,
   `address` text NOT NULL,
   `image` text NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`rs_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restaurant`
@@ -212,11 +241,12 @@ INSERT INTO `restaurant` (`rs_id`, `c_id`, `title`, `email`, `phone`, `url`, `o_
 -- Table structure for table `res_category`
 --
 
-CREATE TABLE `res_category` (
-  `c_id` int(222) NOT NULL,
+CREATE TABLE IF NOT EXISTS `res_category` (
+  `c_id` int(222) NOT NULL AUTO_INCREMENT,
   `c_name` varchar(222) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `res_category`
@@ -237,8 +267,8 @@ INSERT INTO `res_category` (`c_id`, `c_name`, `date`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `u_id` int(222) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `u_id` int(222) NOT NULL AUTO_INCREMENT,
   `username` varchar(222) NOT NULL,
   `f_name` varchar(222) NOT NULL,
   `l_name` varchar(222) NOT NULL,
@@ -246,19 +276,18 @@ CREATE TABLE `users` (
   `phone` varchar(222) NOT NULL,
   `password` varchar(222) NOT NULL,
   `address` text NOT NULL,
-  `status` int(222) NOT NULL DEFAULT '1',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `status` int(222) NOT NULL DEFAULT 1,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`u_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`u_id`, `username`, `f_name`, `l_name`, `email`, `phone`, `password`, `address`, `status`, `date`) VALUES
-(32, 'navjot890', 'nav', 'singh', 'nds949405@gmail.com', '6232125458', '7ae1e8d415d79701e66791c4a5121d69', 'badri col phase 1', 1, '2020-06-26 17:37:15'),
-(33, 'tanvir10', 'Ahmed', 'Tanvir', 'tanvir.ahmed.66@mail.com', '01845698745', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka', 1, '2020-06-28 08:10:13'),
-(35, 'tanvir', 'Tanvir', 'Ahmed', 'sejnabir0167@gmail.com', '01845698745', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka\r\ndhanmondi', 1, '2020-07-03 13:49:56'),
-(36, 'habib', 'Habibur', 'Rahman', 'habib@mail.com', '01869589654', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka.', 1, '2020-09-14 13:53:09');
+(35, 'ariful', 'Ariful', 'Islam', 'ariful@gmail.com', '01845698745', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka\r\ndhanmondi', 1, '2021-09-22 10:21:30'),
+(36, 'biplob', 'Sazidul', 'Biplob', 'biplob@mail.com', '01869589654', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka.', 1, '2021-09-22 10:20:16');
 
 -- --------------------------------------------------------
 
@@ -266,8 +295,8 @@ INSERT INTO `users` (`u_id`, `username`, `f_name`, `l_name`, `email`, `phone`, `
 -- Table structure for table `users_orders`
 --
 
-CREATE TABLE `users_orders` (
-  `o_id` int(222) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users_orders` (
+  `o_id` int(222) NOT NULL AUTO_INCREMENT,
   `u_id` int(222) NOT NULL,
   `title` varchar(222) NOT NULL,
   `quantity` int(222) NOT NULL,
@@ -278,8 +307,9 @@ CREATE TABLE `users_orders` (
   `lng` double DEFAULT NULL,
   `date` date NOT NULL,
   `time` int(2) NOT NULL,
-  `state` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `state` varchar(2) NOT NULL,
+  PRIMARY KEY (`o_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_orders`
@@ -288,130 +318,14 @@ CREATE TABLE `users_orders` (
 INSERT INTO `users_orders` (`o_id`, `u_id`, `title`, `quantity`, `price`, `status`, `address`, `lat`, `lng`, `date`, `time`, `state`) VALUES
 (68, 35, 'Hard Rock Cafe', 1, '500.00', 'closed', 'dhaka', NULL, NULL, '2020-08-18', 1, 'pm'),
 (72, 35, 'Hard Rock Cafe', 1, '500.00', 'in process', NULL, 23.656158200000004, 90.4972422, '2020-08-19', 10, 'am'),
-(80, 35, 'Hard Rock Cafe', 1, '500.00', NULL, NULL, 23.656158200000004, 90.4972422, '2020-08-22', 8, 'pm'),
 (81, 35, 'Chicken Burger', 1, '100.00', 'closed', NULL, 23.656158200000004, 90.4972422, '2020-08-22', 8, 'pm'),
 (82, 35, 'Uno Pizzeria & Grill', 1, '400.00', NULL, 'west razabazr, dhanmondi, dhaka.', NULL, NULL, '2020-09-15', 1, 'pm'),
 (83, 35, 'Chicken Burger', 1, '100.00', NULL, 'west razabazr, dhanmondi, dhaka.', NULL, NULL, '2020-09-15', 1, 'pm'),
 (84, 35, 'Bonefish', 1, '400.00', NULL, 'west razabazar, dhanmondi, dhaka.', NULL, NULL, '2020-09-15', 1, 'pm'),
 (85, 35, 'Bonefish', 1, '400.00', NULL, NULL, 23.6562739, 90.4974451, '2020-09-16', 10, 'am'),
-(86, 35, 'khasir kala vuna', 1, '300.00', NULL, NULL, 23.65639, 90.4974451, '2020-09-19', 10, 'am');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`adm_id`);
-
---
--- Indexes for table `admin_codes`
---
-ALTER TABLE `admin_codes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `del-boy`
---
-ALTER TABLE `del-boy`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `dishes`
---
-ALTER TABLE `dishes`
-  ADD PRIMARY KEY (`d_id`);
-
---
--- Indexes for table `remark`
---
-ALTER TABLE `remark`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `restaurant`
---
-ALTER TABLE `restaurant`
-  ADD PRIMARY KEY (`rs_id`);
-
---
--- Indexes for table `res_category`
---
-ALTER TABLE `res_category`
-  ADD PRIMARY KEY (`c_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`u_id`);
-
---
--- Indexes for table `users_orders`
---
-ALTER TABLE `users_orders`
-  ADD PRIMARY KEY (`o_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `adm_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `admin_codes`
---
-ALTER TABLE `admin_codes`
-  MODIFY `id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `del-boy`
---
-ALTER TABLE `del-boy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `dishes`
---
-ALTER TABLE `dishes`
-  MODIFY `d_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `remark`
---
-ALTER TABLE `remark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
-
---
--- AUTO_INCREMENT for table `restaurant`
---
-ALTER TABLE `restaurant`
-  MODIFY `rs_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
-
---
--- AUTO_INCREMENT for table `res_category`
---
-ALTER TABLE `res_category`
-  MODIFY `c_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `u_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- AUTO_INCREMENT for table `users_orders`
---
-ALTER TABLE `users_orders`
-  MODIFY `o_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
-COMMIT;
+(86, 35, 'khasir kala vuna', 1, '300.00', NULL, NULL, 23.65639, 90.4974451, '2020-09-19', 10, 'am'),
+(87, 35, 'Hard Rock Cafe', 1, '500.00', NULL, 'n ganj.', NULL, NULL, '2021-09-10', 1, 'pm'),
+(88, 35, 'Kacchi', 1, '180.00', NULL, NULL, 23.6553812, 90.5003416, '2021-09-11', 3, 'pm');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

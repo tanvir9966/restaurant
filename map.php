@@ -102,6 +102,8 @@
         <label for="address">Time: &nbsp;</label>
         <select name="time" class="custom-select" style="font-weight: bold">
 
+            <option disabled selected>00</option>
+
             <?php
 
             for ($i= 1; $i<=12; $i++)

@@ -26,7 +26,10 @@ else
         $item_total += ($item["price"]*$item["quantity"]);
 
         $date= $_POST['date'];
-        $time= $_POST['time'];
+        if (!isset($_POST['time']))
+            $time= null;
+        else
+            $time= $_POST['time'];
         $state= $_POST['state'];
 
         if ($state == 'pm')
@@ -83,6 +86,12 @@ else
             if ($date == null)
             {
                 echo "Please select a date to order.";
+                $msg++;
+            }
+
+            elseif ($time == null)
+            {
+                echo "Please select a time.";
                 $msg++;
             }
 

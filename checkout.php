@@ -24,7 +24,10 @@ else{
 													{
 													    $address= $_POST['address'];
 													    $date= $_POST['date'];
-													    $time= $_POST['time'];
+                                                        if (!isset($_POST['time']))
+                                                            $time= null;
+                                                        else
+                                                            $time= $_POST['time'];
 													    $state= $_POST['state'];
 
 													    if ($state == 'pm')
@@ -82,6 +85,11 @@ else{
 													    elseif ($date == null)
                                                         {
                                                             $success = "Please select a date to order.";
+                                                        }
+
+                                                        elseif ($time == null)
+                                                        {
+                                                            $success = "Please select a time.";
                                                         }
 
                                                         elseif ($dif < 0)
@@ -254,6 +262,8 @@ else{
                                         <div class="form-group">
                                             <label for="address">Time: &nbsp;</label>
                                             <select name="time" class="custom-select" style="font-weight: bold">
+
+                                                <option disabled selected>00</option>
 
                                                 <?php
 
