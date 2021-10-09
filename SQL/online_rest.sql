@@ -1,32 +1,13 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Sep 22, 2021 at 12:36 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `online_rest`
---
 CREATE DATABASE IF NOT EXISTS `online_rest` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `online_rest`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
 
 CREATE TABLE IF NOT EXISTS `admin` (
   `adm_id` int(222) NOT NULL AUTO_INCREMENT,
@@ -38,19 +19,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`adm_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `admin`
---
-
 INSERT INTO `admin` (`adm_id`, `username`, `password`, `email`, `code`, `date`) VALUES
 (6, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'admin@gmail.com', '', '2018-04-09 07:36:18'),
 (9, 'biplob', 'e10adc3949ba59abbe56e057f20f883e', 'tanvir@mail.com', 'QFE6ZM', '2021-09-22 10:27:41');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin_codes`
---
 
 CREATE TABLE IF NOT EXISTS `admin_codes` (
   `id` int(222) NOT NULL AUTO_INCREMENT,
@@ -59,10 +30,6 @@ CREATE TABLE IF NOT EXISTS `admin_codes` (
   UNIQUE KEY `codes` (`codes`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `admin_codes`
---
-
 INSERT INTO `admin_codes` (`id`, `codes`) VALUES
 (2, 'QFE6ZM'),
 (6, 'QMTZ2J'),
@@ -70,12 +37,6 @@ INSERT INTO `admin_codes` (`id`, `codes`) VALUES
 (4, 'QPGIOV'),
 (5, 'QSTE52'),
 (1, 'QX5ZMN');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chef`
---
 
 CREATE TABLE IF NOT EXISTS `chef` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -86,19 +47,9 @@ CREATE TABLE IF NOT EXISTS `chef` (
   UNIQUE KEY `phone` (`phone`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `chef`
---
-
 INSERT INTO `chef` (`id`, `name`, `address`, `phone`) VALUES
 (4, 'habib9', 'dhaka', 2147483647),
 (9, 'habib', 'poi', 456987123);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `del-boy`
---
 
 CREATE TABLE IF NOT EXISTS `del-boy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -111,19 +62,9 @@ CREATE TABLE IF NOT EXISTS `del-boy` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `del-boy`
---
-
 INSERT INTO `del-boy` (`id`, `username`, `name`, `phone`, `pass`, `address`, `email`) VALUES
 (8, 'dip', 'Miadul Dip', 1834263335, '123456', 'dhaka\r\ndhanmondi', 'bhy49796@cjpeg.com'),
 (9, 'habib', 'Habib', 1869589654, '123456', 'dhaka', 'habib@mail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dishes`
---
 
 CREATE TABLE IF NOT EXISTS `dishes` (
   `d_id` int(222) NOT NULL AUTO_INCREMENT,
@@ -134,10 +75,6 @@ CREATE TABLE IF NOT EXISTS `dishes` (
   `img` varchar(222) NOT NULL,
   PRIMARY KEY (`d_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `dishes`
---
 
 INSERT INTO `dishes` (`d_id`, `rs_id`, `title`, `slogan`, `price`, `img`) VALUES
 (11, 57, 'Bonefish', 'Three ounces of lightly seasoned fresh tilapia ', '400.00', '5f170038bf273.jpg'),
@@ -159,12 +96,6 @@ INSERT INTO `dishes` (`d_id`, `rs_id`, `title`, `slogan`, `price`, `img`) VALUES
 (28, 61, 'khasir kala vuna', 'Popular', '300.00', '5f154ecb21459.jpg'),
 (29, 61, 'Lacchi', 'good', '200.00', '5f5f780da13cc.jpg');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `remark`
---
-
 CREATE TABLE IF NOT EXISTS `remark` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `frm_id` int(11) NOT NULL,
@@ -173,10 +104,6 @@ CREATE TABLE IF NOT EXISTS `remark` (
   `remarkDate` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `remark`
---
 
 INSERT INTO `remark` (`id`, `frm_id`, `status`, `remark`, `remarkDate`) VALUES
 (62, 32, 'in process', 'hi', '2018-04-18 17:35:52'),
@@ -201,12 +128,6 @@ INSERT INTO `remark` (`id`, `frm_id`, `status`, `remark`, `remarkDate`) VALUES
 (81, 68, 'closed', 'delivered.', '2020-09-14 14:03:38'),
 (82, 81, 'closed', 'delivered.', '2020-09-14 14:06:03');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `restaurant`
---
-
 CREATE TABLE IF NOT EXISTS `restaurant` (
   `rs_id` int(222) NOT NULL AUTO_INCREMENT,
   `c_id` int(222) NOT NULL,
@@ -223,10 +144,6 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
   PRIMARY KEY (`rs_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `restaurant`
---
-
 INSERT INTO `restaurant` (`rs_id`, `c_id`, `title`, `email`, `phone`, `url`, `o_hr`, `c_hr`, `o_days`, `address`, `image`, `date`) VALUES
 (57, 5, 'Sultans Dine', 'sultan@gmail.com', '01845698745', 'www.facebook.com', '10am', '8pm', 'mon-sat', 'dhaka\r\ndhanmondi', '5f1494459bd3a.jpg', '2020-07-19 18:43:17'),
 (58, 8, 'Chillox', 'chillox@gmail.com', '01776707158', 'www.qq.com', '9am', '7pm', 'mon-fri', 'Level 3, AMM Center, Road 3A, Dhanmondi\r\nDhaka, Bangladesh 1209', '5f1544482049d.jpg', '2020-07-20 07:14:16'),
@@ -235,22 +152,12 @@ INSERT INTO `restaurant` (`rs_id`, `c_id`, `title`, `email`, `phone`, `url`, `o_
 (61, 5, 'Star Kabab', 'kabab@gmail.com', '814-678-6689', 'www.facebook.com', '11am', '8pm', 'mon-sat', '22, House 16, Road No. 2 (Old), Dhanmondi R/A, Dhaka 1209', '5f154d831f491.jpg', '2020-07-20 07:53:39'),
 (62, 11, 'Biriany house', 'res@mail.com', '01869589654', 'example.com', '8am', '8pm', 'mon-tue', 'Mohammadpur, dhaka.', '5f5f779c3262e.jpg', '2020-09-14 14:01:00');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `res_category`
---
-
 CREATE TABLE IF NOT EXISTS `res_category` (
   `c_id` int(222) NOT NULL AUTO_INCREMENT,
   `c_name` varchar(222) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `res_category`
---
 
 INSERT INTO `res_category` (`c_id`, `c_name`, `date`) VALUES
 (5, 'grill', '2018-04-14 18:45:28'),
@@ -260,12 +167,6 @@ INSERT INTO `res_category` (`c_id`, `c_name`, `date`) VALUES
 (9, 'fish', '2018-04-14 18:44:33'),
 (10, 'Burger', '2020-07-20 07:23:58'),
 (11, 'kacchi', '2020-09-14 13:57:06');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
 
 CREATE TABLE IF NOT EXISTS `users` (
   `u_id` int(222) NOT NULL AUTO_INCREMENT,
@@ -281,19 +182,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`u_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users`
---
-
 INSERT INTO `users` (`u_id`, `username`, `f_name`, `l_name`, `email`, `phone`, `password`, `address`, `status`, `date`) VALUES
 (35, 'ariful', 'Ariful', 'Islam', 'ariful@gmail.com', '01845698745', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka\r\ndhanmondi', 1, '2021-09-22 10:21:30'),
 (36, 'biplob', 'Sazidul', 'Biplob', 'biplob@mail.com', '01869589654', 'e10adc3949ba59abbe56e057f20f883e', 'dhaka.', 1, '2021-09-22 10:20:16');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users_orders`
---
 
 CREATE TABLE IF NOT EXISTS `users_orders` (
   `o_id` int(222) NOT NULL AUTO_INCREMENT,
@@ -310,10 +201,6 @@ CREATE TABLE IF NOT EXISTS `users_orders` (
   `state` varchar(2) NOT NULL,
   PRIMARY KEY (`o_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users_orders`
---
 
 INSERT INTO `users_orders` (`o_id`, `u_id`, `title`, `quantity`, `price`, `status`, `address`, `lat`, `lng`, `date`, `time`, `state`) VALUES
 (68, 35, 'Hard Rock Cafe', 1, '500.00', 'closed', 'dhaka', NULL, NULL, '2020-08-18', 1, 'pm'),
